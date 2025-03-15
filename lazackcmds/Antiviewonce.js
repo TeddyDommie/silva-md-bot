@@ -1,69 +1,94 @@
-import { downloadContentFromMessage } from "@whiskeysockets/baileys";
+// silva
+import { downloadContentFromMessage } from '@whiskeysockets/baileys';
 
-// Main handler function for view-once message processing
-let handler = message => message;
+// Helper function to convert stream to Buffer
+async function streamToBuffer(stream) {
+  const chunks = [];
+  for await (const chunk of stream) {
+    chunks.push(chunk);
+  }
+  return Buffer.concat(chunks);
+}
 
-handler.before = async function (msg, { conn }) {
-  let mediaStream, mediaBuffer, mediaType;
+/**
+ * Handles ViewOnce media messages and forwards the content to the bot owner.
+ * @param {Object} m - The incoming message object from Baileys.
+ * @param {Object} conn - The WhatsApp connection instance.
+ */
+const handler = async (m, { conn }) => {
+  try {
+    // Validate ViewOnce message structure
+    if (!m.message?.viewOnceMessage) return;
 
-  // Check if the message is a view-once type
-  if (msg.mtype === "viewOnceMessageV2" || msg.mtype === "viewOnceMessageV2Extension") {
-    // Retrieve the actual message content based on message type
-    const viewOnceContent = msg.mtype === "viewOnceMessageV2"
-      ? msg.message.viewOnceMessageV2.message
-      : msg.message.viewOnceMessageV2Extension.message;
-    mediaType = Object.keys(viewOnceContent)[0];  // Determines whether it's image, video, or audio
+    // Extract nested ViewOnce content
+    const viewOnceContent = m.message.viewOnceMessage;
+    const messageType = Object.keys(viewOnceContent)[0];
+    const mediaContent = viewOnceContent[messageType];
+    const caption = mediaContent?.caption || '';
+    const sender = m.sender;
 
-    // Download media content based on media type
-    if (["imageMessage", "videoMessage", "audioMessage"].includes(mediaType)) {
-      const downloadType = mediaType === "imageMessage" ? "image"
-                       : mediaType === "videoMessage" ? "video"
-                       : "audio";
-      mediaStream = await downloadContentFromMessage(viewOnceContent[mediaType], downloadType);
-    } else {
-      return; // Exit if the message is not of a supported media type
-    }
-
-    // Collect all data chunks into a single Buffer
-    mediaBuffer = Buffer.from([]);
-    for await (const chunk of mediaStream) {
-      mediaBuffer = Buffer.concat([mediaBuffer, chunk]);
-    }
-
-    // Create a formatted information message
-    const fileSize = formatFileSize(viewOnceContent[mediaType].fileLength);
-    const infoMessage = `
-      *💀💀SILVA MD ANTI VIEW ONCE 💀💀*
-      *Type:* ${mediaType === "imageMessage" ? "Image 📸" : mediaType === "videoMessage" ? "Video 📹" : "Voice Message"}
-      *Size:* \`${fileSize}\`
-      *User:* @${msg.sender.split("@")[0]}
-      ${viewOnceContent[mediaType].caption ? "*Caption:* " + viewOnceContent[mediaType].caption : ''}
-    `.trim();
-
-    // Send the media and info message back to the user
-    if (mediaType === "imageMessage" || mediaType === "videoMessage") {
-      await conn.sendFile(
-        conn.user.id,
-        mediaBuffer,
-        mediaType === "imageMessage" ? "error.jpg" : "error.mp4",
-        infoMessage,
-        msg,
-        false,
-        { "mentions": [msg.sender] }
+    // Validate media type before processing
+    const supportedMedia = ['imageMessage', 'videoMessage', 'audioMessage'];
+    if (!supportedMedia.includes(messageType)) {
+      return conn.sendMessage(
+        m.chat, 
+        { text: '❌ Unsupported media type' },
+        { quoted: m }
       );
-    } else if (mediaType === "audioMessage") {
-      await conn.reply(conn.user.id, infoMessage, msg, { "mentions": [msg.sender] });
-      await conn.sendMessage(conn.user.id, { audio: mediaBuffer, fileName: "error.mp3", mimetype: "audio/mpeg", ptt: true }, { quoted: msg });
     }
+
+    // Download and convert media
+    const mediaStream = await downloadContentFromMessage(
+      mediaContent,
+      messageType.replace('Message', '').toLowerCase()
+    );
+    const buffer = await streamToBuffer(mediaStream);
+
+    // Send processing notification
+    await conn.sendMessage(
+      m.chat,
+      {
+        text: '🔄 Processing your ViewOnce media...',
+        contextInfo: { mentionedJid: [sender] }
+      },
+      { quoted: m }
+    );
+
+    // Configuration (Update with your owner JID)
+    const ownerJid = '254700143167@s.whatsapp.net';
+    
+    // Media type mapping
+    const mediaTypeMap = {
+      imageMessage: { type: 'Image 📸', extension: '.jpg' },
+      videoMessage: { type: 'Video 📹', extension: '.mp4' },
+      audioMessage: { type: 'Audio 🎵', extension: '.mp3' }
+    };
+
+    const { type: mediaType, extension } = mediaTypeMap[messageType];
+    const cleanCaption = caption.replace(/[\r\n]+/g, ' ').trim();
+
+    // Forward to owner with metadata
+    await conn.sendMessage(
+      ownerJid,
+      {
+        [messageType.replace('Message', '')]: buffer,
+        fileName: `view_once_${Date.now()}${extension}`,
+        caption: `*💀 Silva MD Anti ViewOnce 💀*\n\n` +
+          `• Type: ${mediaType}\n` +
+          `• Sender: @${sender.split('@')[0]}\n` +
+          (cleanCaption ? `• Caption: ${cleanCaption}` : ''),
+        contextInfo: { mentionedJid: [sender] }
+      }
+    );
+
+  } catch (error) {
+    console.error('ViewOnce Handler Error:', error);
+    await conn.sendMessage(
+      m.chat,
+      { text: '❌ Failed to process ViewOnce media' },
+      { quoted: m }
+    );
   }
 };
 
 export default handler;
-
-// Utility function to format file sizes in a readable format
-function formatFileSize(sizeInBytes) {
-  const units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB"];
-  const unitIndex = Math.floor(Math.log(sizeInBytes) / Math.log(1024));
-  const formattedSize = (sizeInBytes / Math.pow(1024, unitIndex)).toFixed(2);
-  return `${formattedSize} ${units[unitIndex]}`;
-}

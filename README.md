@@ -1,8 +1,11 @@
+### SILVA MD BOT DOCUMENTATION 
+---
+## ALL YOU NEED TO KNOW ABOUT SILVA MD BOT
 ---
 
 ### 🌟 Connect With Me
 <p align="center">
-  <a href="https://wa.me/254700143167"><img src="https://raw.githubusercontent.com/shizothetechie/database/main/icon/WhatsApp.png" width="10%"></a>
+  <a href="https://whatsapp.com/channel/0029VaAkETLLY6d8qhLmZt2v"><img src="https://raw.githubusercontent.com/shizothetechie/database/main/icon/WhatsApp.png" width="10%"></a>
   <a href="https://instagram.com/_its.silva"><img src="https://raw.githubusercontent.com/shizothetechie/database/main/icon/Instagram.png" width="11%"></a>
   <a href="https://www.facebook.com/profile.php?id=100055490090211"><img src="https://raw.githubusercontent.com/shizothetechie/database/main/icon/Facebook.png" width="12%"></a>
   <a href="https://x.com/silva_african"><img src="https://raw.githubusercontent.com/shizothetechie/database/main/icon/twitter.png" width="10%"></a>
@@ -13,6 +16,12 @@
 
 [![Sponsor SilvaTechB](https://img.shields.io/badge/Sponsor-SilvaTechB-important)](https://github.com/sponsors/SilvaTechB)
 
+ᴄʟɪᴄᴋ ᴡᴀ ʟᴏɢᴏ ᴛᴏ ᴊᴏɪɴ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ 👇 
+<br> [![join](https://raw.githubusercontent.com/SecktorBot/Brandimages/main/secktor.png)](https://chat.whatsapp.com/EFyftTBOzPZ61TzSrO8R5u)
+   
+<h4 align="center">SILVA SUPPORT GROUP</h1>
+
+---
 ---
 
 **Empower innovation and creativity!** Become a sponsor of Silva Tech Inc to help us bring more amazing projects to life. Your support makes a big difference.  
@@ -48,13 +57,14 @@
 
 <p align="center">
   <a href="https://github.com/SilvaTechB/silva-md-bot">
-    <img alt="Silva docs" height="500" src="https://i.imgur.com/7bSFO2O.jpeg">
+    <img alt="Silva docs" height="250" src="https://i.imgur.com/7bSFO2O.jpeg">
   </a>
 </p>
 
 ## 🎬 Watch the Tutorial
 
 To set up the Silva MD Bot quickly, follow our detailed tutorial on YouTube:
+
 [![Silva MD Bot YouTube Tutorial](https://img.shields.io/badge/YouTube-Watch%20Tutorial-red?style=for-the-badge&logo=youtube)](https://youtu.be/EXjuKlsASDQ?si=QWYvigE9yjUNGdRP)
 
 ---
@@ -78,13 +88,9 @@ To set up the Silva MD Bot quickly, follow our detailed tutorial on YouTube:
 ### **Pairing the Bot**
    - Visit the bot site to generate a session code.
      
-      SERVER A
-     
-     [![A Silva MD Bot Github Repo](https://img.shields.io/badge/Whatsapp-Pair%20Code-green?style=for-the-badge&logo=Whatsapp)](https://creds-session.onrender.com/)
 
-     SERVER B
      
-      [![B Silva MD Bot Github Repo](https://img.shields.io/badge/Whatsapp-Pair%20Code-green?style=for-the-badge&logo=Whatsapp)](https://silva-creds.onrender.com/)
+      [![B Silva MD Bot Github Repo](https://img.shields.io/badge/Whatsapp-Pair%20Code-green?style=for-the-badge&logo=Whatsapp)](https://silva-session-selector.vercel.app/)
     
    - Ensure to delete any existing `creds.json` file if redeploying.
 
@@ -97,8 +103,16 @@ To set up the Silva MD Bot quickly, follow our detailed tutorial on YouTube:
    <a href='https://silva-md-fork-checker.vercel.app/' target="_blank">
       <img alt='Deploy on Heroku' src='https://img.shields.io/badge/-DEPLOY-purple?style=for-the-badge&logo=heroku&logoColor=white'/>
    </a>
-
-**Option B: Deploy on Koyeb**
+   
+   **Option B: Deploy on Talkdrove**
+1. [Sign Up on Talkdrove](https://talkdrove.com/auth/signup).
+2. Deploy your app using the button below:
+   <br>
+   <a href='https://talkdrove.com/dashboard/select-bot/prepare-deployment?botId=95' target="_blank">
+      <img alt='Deploy on Koyeb' src='https://img.shields.io/badge/-DEPLOY-blue?style=for-the-badge&logo=whatsapp&logoColor=white'/>
+   </a>
+   
+**Option C: Deploy on Koyeb**
 1. [Sign Up on Koyeb](https://app.koyeb.com/auth/signup).
 2. Obtain a [Koyeb API Key](https://app.koyeb.com/account/api) and configure the [DATABASE_URL](https://github.com/SilvaTechB/silva-md-bot/wiki/DATABASE_URL).
 3. Deploy your app using the button below:
@@ -107,7 +121,7 @@ To set up the Silva MD Bot quickly, follow our detailed tutorial on YouTube:
       <img alt='Deploy on Koyeb' src='https://img.shields.io/badge/-DEPLOY-red?style=for-the-badge&logo=koyeb&logoColor=white'/>
    </a>
 
-**Option C: Deploy on Railway**
+**Option D: Deploy on Railway**
 1. [Create an Account on Railway](https://railway.app/login) if you don’t have one.
 2. Click the button below to deploy using Railway:
    <br>
@@ -116,6 +130,10 @@ To set up the Silva MD Bot quickly, follow our detailed tutorial on YouTube:
    </a>
 
 ---
+CLICK HERE TO VIEW THE EXTERNAL PLUGINS AND INSTALL 👇 
+<br> [![join](https://i.imgur.com/Camnb9g.jpeg)](https://github.com/SilvaTechB/EXTERNAL-PLUGINS)
+  
+<h4 align="center">EXTERNAL PLUGINS</h1>
 
 ## Support & Community
 
@@ -256,4 +274,4 @@ This project is licensed under the [MIT License](LICENSE) - see the LICENSE file
 
 ---
 
-<p align="center">© Silva Tech 2024</p>
+<p align="center">© Silva Tech 2025</p>
